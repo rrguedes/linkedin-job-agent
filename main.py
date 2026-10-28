@@ -7,6 +7,8 @@ from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
 from tavily import TavilyClient
 
+from dtos import AgentResponse
+
 load_dotenv()
 
 tavily = TavilyClient()
@@ -25,7 +27,7 @@ def search(query: str) -> str:
     return tavily.search(query=query)
 
 
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0, response_format=AgentResponse)
 agent = create_agent(model=llm, tools=[search])
 
 
